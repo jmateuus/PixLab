@@ -1,4 +1,4 @@
-package PixLab.domain.pixkey;
+package PixLab.domain;
 
 public enum PixKeyType {
     CPF,

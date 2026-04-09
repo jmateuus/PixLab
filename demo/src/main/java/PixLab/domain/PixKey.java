@@ -1,6 +1,4 @@
-package PixLab.domain.pixkey;
-
-import PixLab.domain.pixTransfer.PixTransfer;
+package PixLab.domain;
 
 public class PixKey {
     private final String id;

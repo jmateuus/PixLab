@@ -1,4 +1,4 @@
-package PixLab.domain.pixTransfer;
+package PixLab.domain;
 
 public enum PixTransferStatus {
     CREATED,

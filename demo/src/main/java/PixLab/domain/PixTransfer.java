@@ -1,4 +1,5 @@
-package PixLab.domain.pixTransfer;
+package PixLab.domain;
+
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -6,13 +7,13 @@ import java.util.Objects;
 
 public class PixTransfer {
     private final String id;
-    private final String chaveOrigem;
-    private final String chaveDestino;
-    private final PixTransferStatus status;
+    private final PixKey chaveOrigem;
+    private final PixKey chaveDestino;
     private final BigDecimal valor;
+    private final PixTransferStatus status;
     private final Instant dataCriacao;
 
-    public PixTransfer(String id, String chaveOrigem, String chaveDestino, PixTransferStatus status, BigDecimal valor, Instant dataCriacao){
+    public PixTransfer(String id, PixKey chaveOrigem, PixKey chaveDestino, BigDecimal valor, PixTransferStatus status, Instant dataCriacao){
         this.id = requireText(id,"id");
         this.chaveOrigem = Objects.requireNonNull(chaveOrigem, "chaveOrigem não pode ser nula");
         this.chaveDestino = Objects.requireNonNull(chaveDestino, "chaveDestino não pode ser nula");
@@ -24,8 +25,12 @@ public class PixTransfer {
     }
 
     private void validateBusinessRules(){
-        if (valor.compareTo(BigDecimal.ZERO) <= 0){
+        if (valor.signum() <= 0){
             throw new IllegalArgumentException("Valor deve ser maior que zero");
+        }
+
+        if (chaveOrigem.getId().equals(chaveDestino.getId())){
+            throw new IllegalArgumentException("Chave origem deve ser diferente da chave de destino");
         }
     }
 
@@ -33,13 +38,14 @@ public class PixTransfer {
         return id;
     }
 
-    public String getChaveOrigem() {
+    public PixKey getChaveOrigem() {
         return chaveOrigem;
     }
 
-    public String getChaveDestino() {
+    public PixKey getChaveDestino() {
         return chaveDestino;
     }
+
 
     public PixTransferStatus getStatus() {
         return status;
@@ -53,10 +59,18 @@ public class PixTransfer {
         return dataCriacao;
     }
 
+    public PixTransfer withStatus(PixTransferStatus newStatus){
+        return new PixTransfer(
+                id,
+                chaveOrigem,
+                chaveDestino,
+                valor,
+                Objects.requireNonNull(newStatus,"Status não pode ser nulo"),
+                dataCriacao
+        );
+    }
+
     public static String requireText(String value, String field){
-        if (value == null || value.isBlank()){
-            throw new IllegalArgumentException(field+ "Não pode ser vazio");
-        }
-        return value;
+        return PixKey.requireText(value, field);
     }
 }
