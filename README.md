@@ -15,10 +15,10 @@ O sistema é baseado em mensageria (Apache Kafka), onde transações são produz
 ## 🧱 Stack Tecnológica
 
 - Java
-- Spring Boot (ou Quarkus, se for o caso)
+- Spring Boot 
 - Apache Kafka
 - Docker
-- PostgreSQL (se estiver usando)
+- PostgreSQL 
 - Maven
 
 ## 📌 Conceitos Aplicados
