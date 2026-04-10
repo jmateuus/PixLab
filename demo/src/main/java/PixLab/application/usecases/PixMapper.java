@@ -7,6 +7,7 @@ import PixLab.domain.PixTransfer;
 
 final class PixMapper {
     private PixMapper() {
+
     }
 
     static PixKeyDto toDto(PixKey pixKey) {

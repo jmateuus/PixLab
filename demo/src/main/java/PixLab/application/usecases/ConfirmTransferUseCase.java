@@ -12,9 +12,9 @@ public class ConfirmTransferUseCase {
         this.pixTransferRepository = pixTransferRepository;
     }
 
-    public PixTransferDto execute(String transferId) {
+    public PixTransferDto execute(String transferId){
         PixTransfer transfer = pixTransferRepository.findById(transferId)
-                .orElseThrow(() -> new IllegalArgumentException("transferência não encontrada"));
+                .orElseThrow(() -> new IllegalArgumentException("Transferêcia não encontrada"));
 
         PixTransfer confirmed = transfer.withStatus(PixTransferStatus.CONFIRMED);
         PixTransfer saved = pixTransferRepository.save(confirmed);

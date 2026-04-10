@@ -1,18 +1,16 @@
 package PixLab.domain;
 
-import java.util.Objects;
-
 public class PixKey {
     private final String id;
     private final PixKeyType tipo;
     private final String valor;
     private final String titular;
 
-    public PixKey(String id, PixKeyType tipo, String valor, String titular) {
-        this.id = requireText(id, "id");
-        this.tipo = Objects.requireNonNull(tipo, "tipo não pode ser nulo");
-        this.valor = requireText(valor, "valor");
-        this.titular = requireText(titular, "titular");
+    public PixKey(String id, PixKeyType tipo, String valor, String titular){
+        this.id = requireText(id,"id");
+        this.tipo = tipo;
+        this.valor = valor;
+        this.titular = titular;
     }
 
     public String getId() {
@@ -31,9 +29,9 @@ public class PixKey {
         return titular;
     }
 
-    private static String requireText(String value, String field) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException(field + " não pode ser vazio");
+    public static String requireText(String value, String field){
+        if (value == null || value.isBlank()){
+            throw  new IllegalArgumentException(field + "Não pode ser vazio");
         }
         return value;
     }
